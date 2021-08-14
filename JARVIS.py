@@ -10,6 +10,7 @@ import requests
 import json
 import random
 import pyjokes
+from translate import Translator
 import platform
 import psutil
 import shutil
@@ -299,9 +300,7 @@ if __name__ == "__main__":
             speak("Hold On a Second ! Your system is on its way to re start")
             os.system("shutdown /r /t 1")
 
-        elif 'show me' in query or 'open' in query:
-            webbrowser.open(query)
-        elif 'ayush' in query:
+        elif 'Ayush' in query:
             speak('How can I forget him, He is my founder, I have hudge respect for him')
 
         elif "write" in query:
@@ -551,7 +550,19 @@ if __name__ == "__main__":
                         print("Invalid selection")
                 except Exception as e :
                     print('Please Enter the number in integer form')
-
+        elif 'translate' in query or 'translator' in query or 'translater' in query:
+            try:
+                speak('Please Type your sentences')
+                lang = input("Enter your sentences (IN English Only): ")
+                translator = Translator(to_lang="Hindi")
+                translation = translator.translate(lang)
+                speak('Your Translated Sentence is:-')
+                print('Your Translated Sentence is:-')
+                print(translation,'\n')
+            except Exception as e:
+                print(e)
+        elif 'show me' in query or 'open' in query:
+            webbrowser.open(query)
         else:
             if len(query)>4:
                 if 'jarvis' in query:
