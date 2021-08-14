@@ -422,6 +422,7 @@ if __name__ == "__main__":
                                 flag = flag + 2
                         print(flag)
                         percent = (flag * 100) / 10
+                        
                         if flag < 6:
                             speak('Ohoo!, Sorry!, You are fail')
                             print(f"Your score is {flag} means {percent}%")
@@ -520,6 +521,7 @@ if __name__ == "__main__":
                             speak('Please Enter the correct option')
                             Answer = int(input('Enter your Option here: '))
                             print("\n")
+
                             if Answer - 1 == correct:
                                 flag = flag + 2
                         print(flag)
