@@ -10,8 +10,8 @@ import requests
 import json
 import random
 import pyjokes
-from translate import Translator
 import platform
+from translate import Translator
 import psutil
 import shutil
 import file2
@@ -303,7 +303,7 @@ if __name__ == "__main__":
         elif 'Ayush' in query:
             speak('How can I forget him, He is my founder, I have hudge respect for him')
 
-        elif "write" in query:
+        elif "write" in query or 'note' in query:
             speak("What should I write,sir?")
             note = takeCommand()
             file_name = open('jarvis.txt', 'a')
@@ -396,6 +396,7 @@ if __name__ == "__main__":
                             random_number = random.randint(0,len(songs))
                             os.startfile(os.path.join(music_dir, songs[random_number]))
                         print("\n")
+
                     elif interest == 2:
                         test = requests.get(url_History).text
                         test1_dict = json.loads(test)
@@ -446,6 +447,7 @@ if __name__ == "__main__":
                             print(random_number)
                             os.startfile(os.path.join(music_dir, songs[random_number]))
                         print("\n")
+
                     elif interest == 3:
                         test = requests.get(url_Politics).text
                         test1_dict = json.loads(test)
@@ -496,6 +498,7 @@ if __name__ == "__main__":
                             print(random_number)
                             os.startfile(os.path.join(music_dir, songs[random_number]))
                         print("\n")
+
                     elif interest == 4:
                         test = requests.get(url_Science).text
                         test1_dict = json.loads(test)
@@ -548,8 +551,11 @@ if __name__ == "__main__":
                         print("\n")
                     else:
                         print("Invalid selection")
+
+                # Handling error using exception case
                 except Exception as e :
                     print('Please Enter the number in integer form')
+
         elif 'translate' in query or 'translator' in query or 'translater' in query:
             try:
                 speak('Please Type your sentences')
@@ -563,6 +569,7 @@ if __name__ == "__main__":
                 print(e)
         elif 'show me' in query or 'open' in query:
             webbrowser.open(query)
+
         else:
             if len(query)>4:
                 if 'jarvis' in query:
@@ -579,6 +586,7 @@ if __name__ == "__main__":
                         except Exception as e:
                             speak('trying to search some result for you')
                             webbrowser.open(query)
+
                     else:
                         query = query.replace("jarvis", "")
                         try:
@@ -598,9 +606,3 @@ if __name__ == "__main__":
                     except Exception as e:
                         speak('trying to search some result for you')
                         webbrowser.open(query)
-
-
-
-
-
-
