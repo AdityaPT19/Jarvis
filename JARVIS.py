@@ -1,6 +1,7 @@
 import pyttsx3
 import datetime
 import time
+from threading import Thread
 import speech_recognition as sr
 import wikipedia
 import webbrowser
@@ -22,7 +23,7 @@ voices = engine.getProperty('voices')
 engine.setProperty('voice',voices[0].id)
 # Setting Voice rate
 rate = engine.getProperty('rate')
-newVoiceRate = 175
+newVoiceRate = 170
 engine.setProperty('rate', newVoiceRate)
 
  # Making Audio Function
@@ -38,7 +39,7 @@ def Intro():
         speak("Good Afternoon!")
     else:
         speak("Good Evening!")
-    speak("This is JARVIS 2.0 sir, speed 1 terabyte, clock frequency 2.5 GigaHeartz, I am able to peformance any type of task...please tell me how can I help you?")
+    speak("Welcome back sir, This is JARVIS 2.0 , speed 1 terabyte, clock frequency 2.5 GigaHeartz, I am able to peformance any type of task...please tell me how can I help you?")
 
 def takeCommand():
     # It takes microphone input from user and return string output
@@ -69,8 +70,10 @@ def sendEmail(to, content):
     server.sendmail('aksin3229@gmail.com', to, content)
     server.close()
 
-
-
+def convertTime(seconds):
+    minutes, seconds = divmod(seconds, 60)
+    hours, minutes = divmod(minutes, 60)
+    return "%d:%02d:%02d" % (hours, minutes, seconds)
 
 if __name__ == "__main__":
     Intro()
@@ -422,7 +425,6 @@ if __name__ == "__main__":
                                 flag = flag + 2
                         print(flag)
                         percent = (flag * 100) / 10
-                        
                         if flag < 6:
                             speak('Ohoo!, Sorry!, You are fail')
                             print(f"Your score is {flag} means {percent}%")
@@ -521,7 +523,6 @@ if __name__ == "__main__":
                             speak('Please Enter the correct option')
                             Answer = int(input('Enter your Option here: '))
                             print("\n")
-
                             if Answer - 1 == correct:
                                 flag = flag + 2
                         print(flag)
@@ -569,6 +570,14 @@ if __name__ == "__main__":
                 print(translation,'\n')
             except Exception as e:
                 print(e)
+        elif 'battery' in query:
+            battery = psutil.sensors_battery()
+            speak(f'Your battery is {battery.percent} percent')
+            print(f"Battery percentage :{battery.percent}%")
+            print("Power plugged in : ", battery.power_plugged)
+            # converting seconds to hh:mm:ss
+            print("Battery left : ", convertTime(battery.secsleft))
+
         elif 'show me' in query or 'open' in query:
             webbrowser.open(query)
 
